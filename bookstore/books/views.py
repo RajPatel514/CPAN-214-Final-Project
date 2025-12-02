@@ -7,3 +7,7 @@ def homepage(request):
 
 def book_detail(request, id):
     return render(request, 'books/detail.html')
+
+def homepage(request):
+    books = Book.objects.get_all_books()
+    return render(request, 'books/home.html', {'books': books})
