@@ -1,6 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Book
 
+def delete_book(request, id):
+    book = Book.objects.get(id=id)
+
+    if request.method == "POST":
+        book.delete()
+        return redirect('/')
+
+    return render(request, 'books/delete.html', {'book': book})
+
 def edit_book(request, id):
     book = Book.objects.get(id=id)
 
