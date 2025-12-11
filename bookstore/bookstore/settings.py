@@ -71,6 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Database

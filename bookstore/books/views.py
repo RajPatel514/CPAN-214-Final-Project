@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Book
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.contrib.auth import login 
 from .serializers import BookSerializer
 from rest_framework.decorators import api_view  
@@ -11,8 +12,7 @@ def delete_book(request, id):
     book = Book.objects.get(id=id)
 
     if book.posted_by != request.user:
-        from django.http import HttpResponseForbidden
-        return HttpResponseForbidden("You can only delete books you posted")
+        return render(request, 'books/forbidden.html')
 
     if request.method == "POST":
         book.delete()
@@ -20,12 +20,19 @@ def delete_book(request, id):
 
     return render(request, 'books/delete.html', {'book': book})
 
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
 def edit_book(request, id):
     book = Book.objects.get(id=id)
 
+    if book.posted_by is None:
+        book.posted_by = request.user
+        book.save()
+
     if book.posted_by != request.user:
-        from django.http import HttpResponseForbidden
-        return HttpResponseForbidden("You can only edit books you posted")
+        return render(request, 'books/forbidden.html')
 
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -69,6 +76,7 @@ def edit_book(request, id):
 
     return render(request, 'books/edit.html', {'book': book})
 
+
 @login_required
 def add_book(request):
     if request.method == 'POST':
@@ -106,11 +114,14 @@ def add_book(request):
             author=author,
             year=year,
             rating=rating,
-            description=description
+            description=description,
+            posted_by=request.user 
         )
 
         return redirect('/')
+
     return render(request, 'books/add.html')
+
 
 
 def homepage(request):
@@ -118,7 +129,9 @@ def homepage(request):
     return render(request, 'books/home.html', {'books': books})
 
 def book_detail(request, id):
-    return render(request, 'books/detail.html')
+    book = Book.objects.get(id=id)
+    return render(request, 'books/detail.html', {'book': book})
+
 
 def homepage(request):
     books = Book.objects.get_all_books()

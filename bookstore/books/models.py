@@ -15,7 +15,7 @@ class Book(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=1)
     description = models.TextField()
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-
+    
     objects = BookManager()
 
     def __str__(self):

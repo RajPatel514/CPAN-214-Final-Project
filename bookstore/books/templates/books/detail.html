@@ -10,8 +10,10 @@
 <p><strong>Rating:</strong> {{ book.rating }}</p>
 <p><strong>Description:</strong></p>
 <p>{{ book.description }}</p>
-<a href="/edit/{{ book.id }}">Edit</a> |
-<a href="/delete/{{ book.id }}">Delete</a>
 
+<a href="/edit/{{ book.id }}/">Edit</a> |
+<a href="/delete/{{ book.id }}/">Delete</a>
+
+<br><br>
 <a href="/">Back to Home</a>
 {% endblock %}
