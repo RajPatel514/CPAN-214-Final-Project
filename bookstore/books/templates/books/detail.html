@@ -11,9 +11,10 @@
 <p><strong>Description:</strong></p>
 <p>{{ book.description }}</p>
 
+<div class="detail-container">
 <a href="/edit/{{ book.id }}/">Edit</a> |
 <a href="/delete/{{ book.id }}/">Delete</a>
-
+<div>
 <br><br>
-<a href="/">Back to Home</a>
+<a href="/" class="btn btn-secondary">Back to Home</a>
 {% endblock %}

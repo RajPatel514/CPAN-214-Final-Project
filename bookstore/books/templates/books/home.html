@@ -4,16 +4,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>CPAN - 214 - Final Project</h1>
-<h2>Raj Patel - n01715368</h2>
-<h2>Zainab Aamir - n01513753</h2>
+<h2>CPAN - 214 - Final Project</h2>
+<h3>Raj Patel - n01715368</h3>
+<h3>Zainab Aamir - n01513753</h3>
 
 <h2>Available Books</h2>
 
 <ul>
     {% for book in books %}
         <li>
-            <a href="/book/{{ book.id }}">{{ book.title }} — {{ book.author }}</a>
+            <a href="/book/{{ book.id }}" class="book-link">{{ book.title }} — {{ book.author }}</a>
         </li>
     {% empty %}
         <li>No books available yet.</li>
