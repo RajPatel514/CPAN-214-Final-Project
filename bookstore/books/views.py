@@ -30,9 +30,9 @@ from django.contrib.auth.decorators import login_required
 def edit_book(request, id):
     book = Book.objects.get(id=id)
 
-    #if book.posted_by is None:
-        #book.posted_by = request.user
-        #book.save()
+    if book.posted_by is None:
+        book.posted_by = request.user
+        book.save()
 
     if book.posted_by != request.user:
         return render(request, 'books/forbidden.html')
