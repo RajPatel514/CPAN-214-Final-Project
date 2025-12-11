@@ -24,6 +24,9 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def edit_book(request, id):
     book = Book.objects.get(id=id)
 
@@ -75,6 +78,7 @@ def edit_book(request, id):
         return redirect('/')
 
     return render(request, 'books/edit.html', {'book': book})
+
 
 
 @login_required
